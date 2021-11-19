@@ -1,0 +1,46 @@
+<div class="container table-responsive tabla" [hidden]="condicion">
+    <table ngTable class="table table-dark mt-4">
+        <thead>
+            <tr>
+                <th class="text-center" *ngFor="let title of titles">
+                   {{title}}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let trans of listaTransaccionesFiltrada; let i = index">
+                <td class="text-center">
+                    <img [src]="trans.imagen" style="width: 3rem; margin-right: 10px;">
+                    <span>{{trans.nombre}} ({{trans.monto}} unidades)</span>
+                     
+                </td>
+                <td class="text-center">
+                    <span>{{trans.precio}}$</span>
+                </td>
+                <td class="text-center">
+                    <span>{{trans.tipo}}</span>
+                </td>
+                <td class="text-center">
+                    <span>{{trans.fecha}}</span>
+                </td>
+                <td class="text-center">
+                    <button class="btn" (click)="eliminarM(eliminarModal);EliminarTransaccion(i, trans.precio)"><img src="../../../assets/boton-x.png" style="width: 2rem;" alt=""></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<ng-template #eliminarModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title text-danger">Transaccion eliminada exitosamente</h4>
+        <button type="button" class="close" class="btn btn-danger mt-3" (click)="c('')">X</button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="modal-body d-flex justify-content-center">
+                <img src="../../../assets/bin.png" style="width: 6rem; margin-right: 10px;" alt="">
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer"></div>
+</ng-template>

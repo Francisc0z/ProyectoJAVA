@@ -1,0 +1,68 @@
+<div class="container tabla">
+    <button (click)="aniadir(usuarioModal)" class="custom-btn btn-15 margenBoton">Crear cartera</button>
+    <table ngTable class="table table-dark mt-4">
+        <thead>
+            <tr>
+                <th class="text-center" *ngFor="let title of titles">
+                    {{title}}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let cartera of carteras; let i = index">
+                    <td class="text-center">
+                        <span>{{cartera.nombre}}</span>
+                    </td>
+                    <td class="text-center">
+                        <span>{{precioFinal.toLocaleString()}}$</span>
+                    </td>
+                    <td class="text-center">
+                        <span><button class="btn btn-success" (click)="mostrarTransacciones(i)">Ver</button></span>
+                    </td>
+                    <td class="text-center">
+                        <button class="btn" (click)="eliminarM(eliminarModal);EliminarCartera(i)"><img src="../../../assets/boton-x.png" style="width: 2rem;" alt=""></button>
+                    </td>
+            </tr>
+        </tbody>
+    </table>
+    <ng-template #usuarioModal let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title text-success">Crear cartera</h4>
+            <button type="button" class="close" class="btn btn-danger mt-3" (click)="c('')">X</button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                <label class=" text-success">Nombre</label>
+                <input [(ngModel)]="cartera.nombre" type="text" class="form-control" name="nombre" id="exampleInputEmail1" placeholder="Ingresar el nombre">
+                </div>
+                <button type="submit" (click)="c(''); correcto(correctoModal);guardar(); " class="btn btn-success mt-3" (click)="agregarCartera()">Confirmar</button>
+            </form>
+        </div>
+        <div class="modal-footer"></div>
+    </ng-template>
+    <ng-template #correctoModal let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title text-success">Cartera creada</h4>
+            <button type="button" class="close btn btn-danger mt-3" (click)="c('')">X</button>
+        </div>
+        <div class="modal-body d-flex justify-content-center">
+            <img src="../../../assets/success.png" style="width: 6rem; margin-right: 10px;">
+        </div>
+        <div class="modal-footer"></div>
+    </ng-template>
+    <ng-template #eliminarModal let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title text-danger">Cartera eliminada exitosamente</h4>
+            <button type="button" class="close" class="btn btn-danger mt-3" (click)="c('')">X</button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="modal-body d-flex justify-content-center">
+                    <img src="../../../assets/bin.png" style="width: 6rem; margin-right: 10px;" alt="">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer"></div>
+    </ng-template>
+</div>

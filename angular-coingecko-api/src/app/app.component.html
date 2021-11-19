@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="header">
+        <img src="assets/logo.png" alt="logo">
+        <h2 class="titulo">Crypto<p class="text-success">Market</p> </h2> 
+    </div>
+</div>
+<div class="botones row d-flex justify-content-center">
+    <button type="button" (click)="mostrar2()" class="fill col-md-2 col-8 botones">Monedas</button>
+    <button type="button" (click)="mostrar()" class="fill col-md-2 col-8 botones">Carteras</button>
+</div>
+<div id="title" #asTitle></div>
+<app-crypto [hidden]="condicional"></app-crypto>
+<app-monedas [hidden]="condicional2"></app-monedas>
+<app-cartera></app-cartera>
+

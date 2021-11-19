@@ -1,0 +1,103 @@
+<div class="container">
+    <input type="text" placeholder="Buscar" class="form-control bg-dark text-light border-0 my-4 text-center"(keyup)="searchCoin()" [(ngModel)]="searchText">
+    <div class="table-responsive">
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th class="text-center" *ngFor="let title of titles">
+                        {{title}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let coin of filteredCoins; let i = index">
+                    <td>
+                        <img [src]="coin.image" alt="{{coin.name}}" style="width: 2rem; margin-right: 10px;">
+                        <span class="ocultar">{{coin.name}} </span>
+                        <span class="text-muted text-uppercase ms-2">{{coin.symbol}}</span>
+                    </td>
+                    <td class="text-center">
+                        ${{coin.current_price.toLocaleString()}}
+                    </td>
+                    <td class="text-center" [ngClass]="coin.price_change_percentage_24h > 0 ? 'text-success': 'text-danger'">
+                        {{coin.price_change_percentage_24h.toLocaleString()}}
+                    </td>
+                    <td class="text-center">
+                        <button (click)="compra(compraModal);guardar(coin.image,coin.current_price, coin.name)" class="btn"><img src="../../../assets/anadir (1).png" style="width: 2rem;" alt=""></button>
+                    </td>
+                    <td class="text-center">
+                        <button (click)="venta(ventaModal);guardar(coin.image,coin.current_price, coin.name)" class="btn"><img src="../../../assets/eliminar (2).png" style="width: 2rem;" alt=""></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ng-template #compraModal let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h3 class="modal-title text-success">Comprar cryptos</h3>
+            <button type="button" class="close" class="btn btn-danger mt-3" (click)="c('')">X</button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="d-flex justify-content-center">
+                    <img [src]="url" style="width: 8rem; margin-right: 10px;">
+                </div>
+                <div class="form-group">
+                    <label class="text-dark">Seleccione una cartera</label>
+                    <label for="exampleFormControlSelect1"></label>
+                    <select [(ngModel)]="carteraNombre" name="seleccionarCar" class="form-control" id="exampleFormControlSelect1">
+                        <option *ngFor="let car of listaCarteras">{{car.nombre}}</option>
+                    </select>
+                </div>
+                <div  class="form-group">
+                <label class="text-dark mt-3">Cantidad</label>
+                <input type="" [(ngModel)]="monto" name="monto" class="form-control" placeholder="Ingresar el monto">
+                </div>
+                <div class="form-group">
+                    <label class="text-success mt-3">El precio total es de: {{((monto)*precioCrypto).toLocaleString()}}$</label>
+                </div>
+                <button type="submit" (click)="c('');correctoCompra(correctoModal)" class="btn btn-success mt-3">Confirmar</button>
+            </form>
+        </div>
+        <div class="modal-footer"></div>
+    </ng-template>
+    <ng-template #ventaModal let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h3 class="modal-title text-danger">Vender cryptos</h3>
+            <button type="button" class="close" class="btn btn-danger mt-3" (click)="c('')">X</button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="d-flex justify-content-center">
+                    <img [src]="url" style="width: 8rem; margin-right: 10px;">
+                </div>
+                <div class="form-group">
+                    <label class="text-dark">Seleccione una cartera</label>
+                    <label for="exampleFormControlSelect1"></label>
+                    <select [(ngModel)]="carteraNombre" name="seleccionarCar" class="form-control" id="exampleFormControlSelect1">
+                        <option *ngFor="let car of listaCarteras">{{car.nombre}}</option>
+                    </select>
+                </div>
+                <div  class="form-group">
+                <label class="text-dark mt-3">Cantidad</label>
+                <input type="" [(ngModel)]="monto" name="monto" class="form-control" placeholder="Ingresar el monto">
+                </div>
+                <div class="form-group">
+                    <label class="text-danger mt-3">El precio total es de: {{((monto)*precioCrypto).toLocaleString()}}$</label>
+                </div>
+                <button type="submit" (click)="c('');correctoVenta(correctoModal)" class="btn btn-success mt-3">Confirmar</button>
+            </form>
+        </div>
+        <div class="modal-footer"></div>
+    </ng-template>
+    <ng-template #correctoModal let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title text-success">Transaccion realizada</h4>
+            <button type="button" class="close btn btn-danger mt-3" (click)="c('')">X</button>
+        </div>
+        <div class="modal-body d-flex justify-content-center">
+            <img src="../../../assets/success.png" style="width: 6rem; margin-right: 10px;">
+        </div>
+        <div class="modal-footer"></div>
+    </ng-template>
+</div>
